@@ -21,30 +21,33 @@ function createGame() {
 
     function movePlayer(command) {
         console.log(`Moving ${command.playerId} with ${command.keyPressed}`);
+
+        const acceptedMoves = {
+            ArrowUp: function(player) {
+                if (player.y > 0) player.y--;
+                return;
+            },
+            ArrowDown: function(player) {
+                if (player.y < screen.height - 1) player.y++;
+                return;
+            },
+            ArrowLeft: function(player) {
+                if (player.x > 0) player.x--;
+                return;
+            },
+            ArrowRight: function(player) {
+                if (player.x < screen.width - 1) player.x++;
+                return;
+            },
+        }
         
         const keyPressed = command.keyPressed;
         const player = state.players[command.playerId];
+        const moveFunction = acceptedMoves[keyPressed];
 
-        if (keyPressed == 'ArrowUp') {
-            player.y--;
-            return;
-        }
+        if (moveFunction) moveFunction(player);
 
-        if (keyPressed == 'ArrowDown') {
-            player.y++;
-            return;
-        }
-
-        if (keyPressed == 'ArrowLeft') {
-            player.x--;
-            return;
-        }
-
-        if (keyPressed == 'ArrowRight') {
-            player.x++;
-            return;
-        }
-
+        return;
     }
 
     return {
