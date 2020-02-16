@@ -1,0 +1,6 @@
+#screen {
+    border: 10px solid #CCC;
+    width: 500px;
+    height: 500px;
+    image-rendering: -moz-crisp-edges;
+}

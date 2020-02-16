@@ -1,0 +1,4 @@
+tasks:
+  - before: cd ./Game/client
+  - init: npm install
+    command: npm start
