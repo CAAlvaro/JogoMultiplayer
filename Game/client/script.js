@@ -9,7 +9,7 @@ const game = {
     fruits: {
         fruit1: { x: 3, y: 1}
     }
-}
+};
 
 renderScreen();
 

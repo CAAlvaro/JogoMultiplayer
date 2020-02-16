@@ -4,16 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Game</title>
-
     <style>
+    
         #screen {
             border: 10px solid #CCC;
-            width: 500px;
-            height: 500px;
             image-rendering: pixelated;
             image-rendering: crisp-edges;
             image-rendering: -moz-crisp-edges;
+            width: 500px;
+            height: 500px;
         }
+
     </style>
 </head>
 
@@ -36,22 +37,36 @@
             }
         }
 
+        document.addEventListener('keydown', handleKeydown);
+
+        function handleKeydown(event) {
+            const key = event.key;
+
+            console.log(key);
+            return;
+        }
+
         renderScreen();
 
         function renderScreen() {
-            for (playerId in game.players) {
+            context.fillStyle = 'white';
+            context.clearRect(0, 0, 10, 10);
+            
+            for (const playerId in game.players) {
                 const player = game.players[playerId];
 
                 context.fillStyle = 'black';
                 context.fillRect(player.x, player.y, 1, 1);
             }
 
-            for (fruitId in game.fruits) {
+            for (const fruitId in game.fruits) {
                 const fruit = game.fruits[fruitId];
 
                 context.fillStyle = 'green';
                 context.fillRect(fruit.x, fruit.y, 1, 1);
             }
+
+            requestAnimationFrame(renderScreen);
         }
 
     </script>
