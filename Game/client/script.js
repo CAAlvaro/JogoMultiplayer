@@ -10,13 +10,30 @@ renderScreen();
 /* CAMADA LOGICA E DADOS */
 function createGame() {
     const state = {
-        players: {
-            player1: { x: 1, y: 1 },
-            player2: { x: 9, y: 9 }
-        },
-        fruits: {
-            fruit1: { x: 3, y: 1 }
+        players: { },
+        fruits: { },
+    }
+
+    function addPlayer(command) {
+        state.players[command.playerId] = {
+            x: command.playerX,
+            y: command.playerY,
         }
+    }
+
+    function removePlayer(command) {
+        delete state.players[command.playerId];
+    }
+
+    function addfruit(command) {
+        state.fruits[command.fruitId] = {
+            x: command.fruitX,
+            y: command.fruitY,
+        }
+    }
+
+    function removefruit(command) {
+        delete state.fruits[command.fruitId];
     }
 
     function movePlayer(command) {
@@ -45,12 +62,16 @@ function createGame() {
         const player = state.players[command.playerId];
         const moveFunction = acceptedMoves[keyPressed];
 
-        if (moveFunction) moveFunction(player);
+        if (player && moveFunction) moveFunction(player);
 
         return;
     }
 
     return {
+        addPlayer,
+        removePlayer,
+        addfruit,
+        removefruit,
         movePlayer,
         state
     }
