@@ -5,6 +5,18 @@ const game = createGame();
 const keyboardListener = createKeyboardListener();
 keyboardListener.subscribe(game.movePlayer);
 
+game.addPlayer({
+    playerId: 'player1',
+    playerX: 0,
+    playerY: 0,
+})
+
+game.addFruit({
+    fruitId: 'fruit1',
+    fruitX: 5,
+    fruitY: 5,
+})
+
 renderScreen();
 
 /* CAMADA LOGICA E DADOS */
@@ -25,15 +37,29 @@ function createGame() {
         delete state.players[command.playerId];
     }
 
-    function addfruit(command) {
+    function addFruit(command) {
         state.fruits[command.fruitId] = {
             x: command.fruitX,
             y: command.fruitY,
         }
     }
 
-    function removefruit(command) {
+    function removeFruit(command) {
         delete state.fruits[command.fruitId];
+    }
+
+    function checkFruitCollision(playerId) {
+        const player = state.players[playerId];
+
+        for (const fruitId in state.fruits) {
+            const fruit = state.fruits[fruitId];
+
+            if (fruit.x === player.x && fruit.y === player.y) {
+                console.log(`COLLISION between ${playerId} and ${fruitId}`);
+                
+                removeFruit({ fruitId: fruitId});
+            }
+        }
     }
 
     function movePlayer(command) {
@@ -62,7 +88,10 @@ function createGame() {
         const player = state.players[command.playerId];
         const moveFunction = acceptedMoves[keyPressed];
 
-        if (player && moveFunction) moveFunction(player);
+        if (player && moveFunction) {
+            moveFunction(player);
+            checkFruitCollision(command.playerId);
+        }
 
         return;
     }
@@ -70,8 +99,8 @@ function createGame() {
     return {
         addPlayer,
         removePlayer,
-        addfruit,
-        removefruit,
+        addFruit,
+        removeFruit,
         movePlayer,
         state
     }
