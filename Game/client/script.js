@@ -57,7 +57,7 @@ function createGame() {
             if (fruit.x === player.x && fruit.y === player.y) {
                 console.log(`COLLISION between ${playerId} and ${fruitId}`);
 
-                removeFruit({fruitId: fruitId});
+                removeFruit({ fruitId: fruitId });
             }
         }
     }
@@ -129,7 +129,7 @@ function createKeyboardListener() {
     function handleKeydown(event) {
         const key = event.key;
 
-        const command = {playerId: 'player1', keyPressed: key};
+        const command = { playerId: 'player1', keyPressed: key };
 
         notifyAll(command);
         return;

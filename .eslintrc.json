@@ -17,6 +17,7 @@
     "rules": {
         "indent": ["error", 4],
         "require-jsdoc": 0,
-        "guard-for-in": 0
+        "guard-for-in": 0,
+        "object-curly-spacing": ["error", "always"]
     }
 }
