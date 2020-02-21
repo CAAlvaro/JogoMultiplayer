@@ -9,13 +9,13 @@ game.addPlayer({
     playerId: 'player1',
     playerX: 0,
     playerY: 0,
-})
+});
 
 game.addFruit({
     fruitId: 'fruit1',
     fruitX: 5,
     fruitY: 5,
-})
+});
 
 renderScreen();
 
@@ -24,13 +24,13 @@ function createGame() {
     const state = {
         players: { },
         fruits: { },
-    }
+    };
 
     function addPlayer(command) {
         state.players[command.playerId] = {
             x: command.playerX,
             y: command.playerY,
-        }
+        };
     }
 
     function removePlayer(command) {
@@ -41,7 +41,7 @@ function createGame() {
         state.fruits[command.fruitId] = {
             x: command.fruitX,
             y: command.fruitY,
-        }
+        };
     }
 
     function removeFruit(command) {
@@ -56,8 +56,8 @@ function createGame() {
 
             if (fruit.x === player.x && fruit.y === player.y) {
                 console.log(`COLLISION between ${playerId} and ${fruitId}`);
-                
-                removeFruit({ fruitId: fruitId});
+
+                removeFruit({fruitId: fruitId});
             }
         }
     }
@@ -82,8 +82,8 @@ function createGame() {
                 if (player.x < screen.width - 1) player.x++;
                 return;
             },
-        }
-        
+        };
+
         const keyPressed = command.keyPressed;
         const player = state.players[command.playerId];
         const moveFunction = acceptedMoves[keyPressed];
@@ -102,15 +102,15 @@ function createGame() {
         addFruit,
         removeFruit,
         movePlayer,
-        state
-    }
+        state,
+    };
 }
 
 /* CAMADA INPUT */
 function createKeyboardListener() {
     const state = {
         observers: [],
-    }
+    };
 
     function subscribe(observerFunction) {
         state.observers.push(observerFunction);
@@ -129,22 +129,22 @@ function createKeyboardListener() {
     function handleKeydown(event) {
         const key = event.key;
 
-        const command = { playerId: 'player1', keyPressed: key };
+        const command = {playerId: 'player1', keyPressed: key};
 
         notifyAll(command);
         return;
     }
 
     return {
-        subscribe
-    }
+        subscribe,
+    };
 }
 
 /* CAMADA APRESENTAÇÃO */
 function renderScreen() {
     context.fillStyle = 'white';
     context.clearRect(0, 0, 10, 10);
-    
+
     for (const playerId in game.state.players) {
         const player = game.state.players[playerId];
 
